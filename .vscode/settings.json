@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "ruby.rubocop.executePath": "/home/raphael/.rvm/gems/ruby-3.0.2/wrappers/"
+}

@@ -1,0 +1,132 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/posts":
+    get:
+      summary: list posts
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/post"
+                required:
+                - id
+                - title
+                - body
+    post:
+      summary: create post
+      parameters: []
+      responses:
+        '201':
+          description: post created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/post"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_post"
+  "/api/posts/{id}":
+    parameters:
+    - name: id
+      in: path
+      format: uuid
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show post
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/post"
+        '404':
+          description: post not found
+    patch:
+      summary: update post
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/post"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_post"
+    put:
+      summary: update post
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/post"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_post"
+    delete:
+      summary: delete post
+      responses:
+        '204':
+          description: successful
+        '404':
+          description: invalid request
+components:
+  schemas:
+    post:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        body:
+          type: string
+      required:
+      - id
+      - title
+      - body
+    new_post:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+      required:
+      - title
+      - body
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
+- url: http://localhost:3001
