@@ -2,6 +2,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       before_action :set_post, only: %i[show update destroy]
+      after_action :update_broadcast, only: %i[create update destroy]
 
       # GET /api/v1/posts
       def index
@@ -45,6 +46,13 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_post
         @post = Post.find(params[:id])
+      end
+
+      def update_broadcast
+        posts = Post.order(updated_at: :desc).all
+        ActionCable.server.broadcast('posts', {
+          posts: ActiveModelSerializers::SerializableResource.new(posts).serializable_hash,
+        })
       end
 
       # Only allow a list of trusted parameters through.
