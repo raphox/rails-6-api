@@ -1,3 +1,5 @@
+# 🚨 This is a repository created just for my study or for those who are curious to implement a REST + ActionCable API 🚨
+
 # README
 
 This README would normally document whatever steps are necessary to get the
