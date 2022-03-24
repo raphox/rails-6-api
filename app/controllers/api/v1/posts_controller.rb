@@ -16,17 +16,6 @@ module Api
         render json: @post
       end
 
-      # POST /api/v1/posts
-      def create
-        @post = Post.new(post_params)
-
-        if @post.save
-          render json: @post, status: :created, location: api_post_url(@post)
-        else
-          render json: @post.errors, status: :unprocessable_entity
-        end
-      end
-
       # PATCH/PUT /api/v1/posts/1
       def update
         if @post.update(post_params)
@@ -34,11 +23,6 @@ module Api
         else
           render json: @post.errors, status: :unprocessable_entity
         end
-      end
-
-      # DELETE /api/v1/posts/1
-      def destroy
-        @post.destroy
       end
 
       private
