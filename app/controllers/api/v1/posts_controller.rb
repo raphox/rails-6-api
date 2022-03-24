@@ -16,6 +16,11 @@ module Api
         render json: @post
       end
 
+      # GET /api/v1/posts/1
+      def show_v2
+        render json: @post
+      end
+
       # POST /api/v1/posts
       def create
         @post = Post.new(post_params)
